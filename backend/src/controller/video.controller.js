@@ -2,6 +2,8 @@ import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import axios from "axios";
+import prisma from "../db/db.js";
+
 const VIDEO_ID = "qF0xOowhAnE";
 const CHANNEL_ID = "UC72pnSp-3vdjYv2owUMzlHQ";
 export const getVideo = asyncHandler(async (req, res) => {
