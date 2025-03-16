@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Backend for cactro full stack assignment",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "nodemon index.js"
+    "dev": "nodemon src/index.js",
+    "prod": "node src/index.js"
   },
   "author": "Aman Thukral",
   "license": "ISC",
