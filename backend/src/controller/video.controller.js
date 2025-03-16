@@ -49,6 +49,7 @@ export const updateTitle = asyncHandler(async (req, res) => {
       action: "TITLE_UPDATED",
       videoId: VIDEO_ID,
       newTitle,
+      oldTitle: currentSnippet.title,
     },
   });
   return res.status(200).json(new ApiResponse(200, {}, "Title updated"));
@@ -125,7 +126,6 @@ export const fetchComments = asyncHandler(async (req, res) => {
     text: item.snippet.topLevelComment.snippet.textDisplay,
     author: item.snippet.topLevelComment.snippet.authorDisplayName,
   }));
-  console.log(formattedComments);
   return res
     .status(200)
     .json(
