@@ -90,25 +90,45 @@ export const addComment = asyncHandler(async (req, res) => {
 
 export const deleteComment = asyncHandler(async (req, res) => {
   const commentId = req.params.commentId;
-  try {
-    await axios.delete(
-      `${process.env.YOUTUBE_API_URI}/comments?id=${commentId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.YOUTUBE_ACCESS_TOKEN}`,
-        },
-      }
+
+  await axios.delete(
+    `${process.env.YOUTUBE_API_URI}/comments?id=${commentId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.YOUTUBE_ACCESS_TOKEN}`,
+      },
+    }
+  );
+  await prisma.eventLog.create({
+    data: { action: "COMMENT_DELETED", videoId: VIDEO_ID, commentId },
+  });
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Comment deleted successfully"));
+});
+
+export const fetchComments = asyncHandler(async (req, res) => {
+  const videoId = req.params.videoId;
+  const comments = await axios.get(
+    `${process.env.YOUTUBE_API_URI}/commentThreads`,
+    {
+      params: {
+        part: "snippet",
+        videoId,
+        key: process.env.YOUTUBE_API_KEY,
+        maxResults: 10,
+      },
+    }
+  );
+  const formattedComments = comments.data.items.map((item) => ({
+    commentId: item.id,
+    text: item.snippet.topLevelComment.snippet.textDisplay,
+    author: item.snippet.topLevelComment.snippet.authorDisplayName,
+  }));
+  console.log(formattedComments);
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, formattedComments, "Comments fetched successfully")
     );
-    await prisma.eventLog.create({
-      data: { action: "COMMENT_DELETED", videoId: VIDEO_ID, commentId },
-    });
-    return res
-      .status(200)
-      .json(new ApiResponse(200, {}, "Comment deleted successfully"));
-  } catch (error) {
-    console.error(
-      "Error deleting comment:",
-      error.response?.data || error.message
-    );
-  }
 });
