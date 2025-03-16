@@ -12,7 +12,9 @@ const VideoDetails = () => {
   const [title, setTitle] = useState("");
   const fetchVideo = async () => {
     try {
-      const result = await axios.get(`/api/video/${VIDEO_ID}`);
+      const result = await axios.get(
+        `https://cactro-fullstack-assignment-wt8x.onrender.com/api/video/${VIDEO_ID}`
+      );
       setVideo(result.data.data);
     } catch (error) {
       setError(error);
@@ -20,7 +22,9 @@ const VideoDetails = () => {
   };
   const fetchComments = async () => {
     try {
-      const result = await axios.get(`api/video/comments/${VIDEO_ID}`);
+      const result = await axios.get(
+        `https://cactro-fullstack-assignment-wt8x.onrender.com/api/video/comments/${VIDEO_ID}`
+      );
       setComments(result.data.data);
     } catch (error) {
       setError(error);
@@ -48,7 +52,11 @@ const VideoDetails = () => {
       },
     };
     try {
-      await axios.put("/api/video/updateTitle", { newTitle: title }, config);
+      await axios.put(
+        "https://cactro-fullstack-assignment-wt8x.onrender.com/api/video/updateTitle",
+        { newTitle: title },
+        config
+      );
       setShowForm(false);
       fetchVideo();
     } catch (error) {
@@ -64,7 +72,11 @@ const VideoDetails = () => {
       },
     };
     try {
-      await axios.post("/api/video/addComment", { comment }, config);
+      await axios.post(
+        "https://cactro-fullstack-assignment-wt8x.onrender.com/api/video/addComment",
+        { comment },
+        config
+      );
       setComment("");
       fetchComments();
     } catch (error) {
@@ -73,7 +85,9 @@ const VideoDetails = () => {
   };
 
   const handleDelete = async (commentId) => {
-    await axios.delete(`/api/video/comment/${commentId}`);
+    await axios.delete(
+      `https://cactro-fullstack-assignment-wt8x.onrender.com/api/video/comment/${commentId}`
+    );
     fetchComments();
   };
 

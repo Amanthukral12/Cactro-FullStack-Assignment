@@ -7,7 +7,9 @@ const Logs = () => {
   const [error, setError] = useState("");
   const fetchLogs = async () => {
     try {
-      const result = await axios.get("/api/logs");
+      const result = await axios.get(
+        "https://cactro-fullstack-assignment-wt8x.onrender.com/api/logs"
+      );
       return result.data;
     } catch (error) {
       setError(error);
