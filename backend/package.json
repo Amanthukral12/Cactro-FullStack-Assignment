@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "prod": "node src/index.js"
+    "prod": "node src/index.js",
+    "postinstall": "prisma generate"
   },
   "author": "Aman Thukral",
   "license": "ISC",
