@@ -17,7 +17,7 @@ const VideoDetails = () => {
       );
       setVideo(result.data.data);
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
   };
   const fetchComments = async () => {
@@ -27,7 +27,7 @@ const VideoDetails = () => {
       );
       setComments(result.data.data);
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
   };
 
@@ -60,7 +60,7 @@ const VideoDetails = () => {
       setShowForm(false);
       fetchVideo();
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
   };
 
@@ -80,7 +80,7 @@ const VideoDetails = () => {
       setComment("");
       fetchComments();
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
   };
 
@@ -93,7 +93,7 @@ const VideoDetails = () => {
 
   return (
     <main className="min-h-screen mb-16">
-      {error && <h1>{error}</h1>}
+      {error && <h1 className="text-2xl">{error}</h1>}
       <h1 className="text-xl lg:text-4xl my-4 text-center">
         Cactro FullStack Assignment
       </h1>

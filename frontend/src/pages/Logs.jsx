@@ -12,7 +12,7 @@ const Logs = () => {
       );
       return result.data;
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
   };
 
